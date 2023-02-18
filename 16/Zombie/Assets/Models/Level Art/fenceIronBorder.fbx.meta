@@ -1,73 +1,203 @@
 fileFormatVersion: 2
 guid: a63b49226ab815941ab7641e40d48ad6
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: bar 12
-    100002: bar 13
-    100004: bar 14
-    100006: bar 15
-    100008: bar 16
-    100010: bar 17
-    100012: bar 18
-    100014: bar 19
-    100016: bar 20
-    100018: bar 21
-    100020: bar 22
-    100022: bar 23
-    100024: //RootNode
-    400000: bar 12
-    400002: bar 13
-    400004: bar 14
-    400006: bar 15
-    400008: bar 16
-    400010: bar 17
-    400012: bar 18
-    400014: bar 19
-    400016: bar 20
-    400018: bar 21
-    400020: bar 22
-    400022: bar 23
-    400024: //RootNode
-    2300000: bar 12
-    2300002: bar 13
-    2300004: bar 14
-    2300006: bar 15
-    2300008: bar 16
-    2300010: bar 17
-    2300012: bar 18
-    2300014: bar 19
-    2300016: bar 20
-    2300018: bar 21
-    2300020: bar 22
-    2300022: bar 23
-    2300024: //RootNode
-    3300000: bar 12
-    3300002: bar 13
-    3300004: bar 14
-    3300006: bar 15
-    3300008: bar 16
-    3300010: bar 17
-    3300012: bar 18
-    3300014: bar 19
-    3300016: bar 20
-    3300018: bar 21
-    3300020: bar 22
-    3300022: bar 23
-    3300024: //RootNode
-    4300000: fenceIronBorder
-    4300002: bar 12
-    4300004: bar 13
-    4300006: bar 14
-    4300008: bar 15
-    4300010: bar 16
-    4300012: bar 17
-    4300014: bar 18
-    4300016: bar 19
-    4300018: bar 20
-    4300020: bar 21
-    4300022: bar 22
-    4300024: bar 23
+  serializedVersion: 22200
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: bar 12
+  - first:
+      1: 100002
+    second: bar 13
+  - first:
+      1: 100004
+    second: bar 14
+  - first:
+      1: 100006
+    second: bar 15
+  - first:
+      1: 100008
+    second: bar 16
+  - first:
+      1: 100010
+    second: bar 17
+  - first:
+      1: 100012
+    second: bar 18
+  - first:
+      1: 100014
+    second: bar 19
+  - first:
+      1: 100016
+    second: bar 20
+  - first:
+      1: 100018
+    second: bar 21
+  - first:
+      1: 100020
+    second: bar 22
+  - first:
+      1: 100022
+    second: bar 23
+  - first:
+      1: 100024
+    second: //RootNode
+  - first:
+      4: 400000
+    second: bar 12
+  - first:
+      4: 400002
+    second: bar 13
+  - first:
+      4: 400004
+    second: bar 14
+  - first:
+      4: 400006
+    second: bar 15
+  - first:
+      4: 400008
+    second: bar 16
+  - first:
+      4: 400010
+    second: bar 17
+  - first:
+      4: 400012
+    second: bar 18
+  - first:
+      4: 400014
+    second: bar 19
+  - first:
+      4: 400016
+    second: bar 20
+  - first:
+      4: 400018
+    second: bar 21
+  - first:
+      4: 400020
+    second: bar 22
+  - first:
+      4: 400022
+    second: bar 23
+  - first:
+      4: 400024
+    second: //RootNode
+  - first:
+      23: 2300000
+    second: bar 12
+  - first:
+      23: 2300002
+    second: bar 13
+  - first:
+      23: 2300004
+    second: bar 14
+  - first:
+      23: 2300006
+    second: bar 15
+  - first:
+      23: 2300008
+    second: bar 16
+  - first:
+      23: 2300010
+    second: bar 17
+  - first:
+      23: 2300012
+    second: bar 18
+  - first:
+      23: 2300014
+    second: bar 19
+  - first:
+      23: 2300016
+    second: bar 20
+  - first:
+      23: 2300018
+    second: bar 21
+  - first:
+      23: 2300020
+    second: bar 22
+  - first:
+      23: 2300022
+    second: bar 23
+  - first:
+      23: 2300024
+    second: //RootNode
+  - first:
+      33: 3300000
+    second: bar 12
+  - first:
+      33: 3300002
+    second: bar 13
+  - first:
+      33: 3300004
+    second: bar 14
+  - first:
+      33: 3300006
+    second: bar 15
+  - first:
+      33: 3300008
+    second: bar 16
+  - first:
+      33: 3300010
+    second: bar 17
+  - first:
+      33: 3300012
+    second: bar 18
+  - first:
+      33: 3300014
+    second: bar 19
+  - first:
+      33: 3300016
+    second: bar 20
+  - first:
+      33: 3300018
+    second: bar 21
+  - first:
+      33: 3300020
+    second: bar 22
+  - first:
+      33: 3300022
+    second: bar 23
+  - first:
+      33: 3300024
+    second: //RootNode
+  - first:
+      43: 4300000
+    second: fenceIronBorder
+  - first:
+      43: 4300002
+    second: bar 12
+  - first:
+      43: 4300004
+    second: bar 13
+  - first:
+      43: 4300006
+    second: bar 14
+  - first:
+      43: 4300008
+    second: bar 15
+  - first:
+      43: 4300010
+    second: bar 16
+  - first:
+      43: 4300012
+    second: bar 17
+  - first:
+      43: 4300014
+    second: bar 18
+  - first:
+      43: 4300016
+    second: bar 19
+  - first:
+      43: 4300018
+    second: bar 20
+  - first:
+      43: 4300020
+    second: bar 21
+  - first:
+      43: 4300022
+    second: bar 22
+  - first:
+      43: 4300024
+    second: bar 23
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -80,7 +210,7 @@ ModelImporter:
       name: stone
     second: {fileID: 2100000, guid: 0e1d04ffdfec3a34a9d7884aed510d1c, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 1
     materialSearch: 2
     materialLocation: 0
@@ -89,6 +219,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -112,34 +243,48 @@ ModelImporter:
     globalScale: 0.2
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
     importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
-    secondaryUVAreaDistortion: 15.000001
+    secondaryUVAreaDistortion: 15
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 10
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-    normalCalculationMode: 0
+    normalCalculationMode: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 0
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -149,14 +294,19 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.2
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 0
   humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
