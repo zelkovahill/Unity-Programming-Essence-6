@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8512681968067611310}
   - component: {fileID: 8512681968067611311}
   - component: {fileID: 8512681968067611305}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Player Character
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -58,6 +58,7 @@ Animator:
   m_HasTransformHierarchy: 0
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!54 &8512681968067611308
 Rigidbody:
   m_ObjectHideFlags: 0
