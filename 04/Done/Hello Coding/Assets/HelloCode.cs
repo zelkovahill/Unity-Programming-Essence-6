@@ -13,6 +13,7 @@ public class HelloCode : MonoBehaviour {
         int age = 17;
         float height = 168.3f;
         bool isFemale = true;
+        var country = "영국";
 
         // 생성한 변수들을 콘솔에 출력
         Debug.Log("캐릭터 이름 : " + characterName);
@@ -20,6 +21,7 @@ public class HelloCode : MonoBehaviour {
         Debug.Log("나이 : " + age);
         Debug.Log("키 : " + height);
         Debug.Log("여성인가? : " + isFemale);
+        Debug.Log("출신 국가 : " + country);
 
         // GetDistance() 메서드로 (2,2) 에서 (5,6) 사이의 거리 구하기
         float distance = GetDistance(2, 2, 5, 6);
