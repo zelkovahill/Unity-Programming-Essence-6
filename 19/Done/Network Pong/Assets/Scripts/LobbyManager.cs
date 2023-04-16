@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Unity.Netcode;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,22 +13,12 @@ public class LobbyManager : NetworkBehaviour
     private const int MinimumReadyCountToStartGame = 2;
 
     // 플레이어 준비 상태를 저장하는 딕셔너리
-    private Dictionary<ulong, bool> _clientsInLobbyReadyStateDictionary
+    private Dictionary<ulong, bool> _clientReadyStates
         = new Dictionary<ulong, bool>();
 
-    private void OnEnable()
-    {
-        Debug.Log("OnEnable");
-    }
-
     // OnNetworkSpawn은 NetworkBehaviour가 생성될 때 호출됨
-    // 여기서는 플레이어 목록을 초기화하고, 서버에서는 클라이언트들이 접속했는지 감지하는 콜백을 등록함
     public override void OnNetworkSpawn()
     {
-        Debug.Log("OnNetworkSpawn");
-        // 먼저 자기 자신을 등록
-        _clientsInLobbyReadyStateDictionary.Add(NetworkManager.LocalClientId, false);
-
         // 만약 우리가 서버(호스트)라면, 클라이언트들이 접속했는지 콜백을 통해 감지하고 관리해야함
         if (IsServer)
         {
@@ -42,15 +30,15 @@ public class LobbyManager : NetworkBehaviour
             // 서버는 OnLoadComplete를 모든 클라이언트들에 대해서 듣는다는 것에 주의!
             NetworkManager.SceneManager.OnLoadComplete += OnClientSceneLoadComplete;
         }
-
-        //Update our lobby
-        UpdateLobbyText();
+        
+        // 먼저 자기 자신의 준비 상태를 등록
+        _clientReadyStates.Add(NetworkManager.LocalClientId, false);
+        UpdateLobbyText(); // 로비 텍스트를 갱신
     }
-
-    // OnNetworkDespawn은 NetworkBehaviour가 파괴될 때 호출됨
-    // 여기서는 서버가 네트워크 매니저에게 등록한 콜백을 해제하는데 사용
-    public override void OnNetworkDespawn()
+    
+    private void OnDisable()
     {
+        // 서버가 네트워크 매니저에게 등록한 콜백을 해제 사용
         if (IsServer)
         {
             NetworkManager.OnClientConnectedCallback -= OnClientConnectedCallback;
@@ -58,15 +46,20 @@ public class LobbyManager : NetworkBehaviour
             NetworkManager.SceneManager.OnLoadComplete -= OnClientSceneLoadComplete;
         }
     }
-
+    
     // 클라이언트가 어떤 씬을 로드하는데 성공했을때 실행할 처리
-    private void OnClientSceneLoadComplete(ulong clientid, string scenename, LoadSceneMode loadscenemode)
+    private void OnClientSceneLoadComplete(ulong clientId, string sceneName, LoadSceneMode loadSceneMode)
     {
+        if (sceneName != "Lobby")
+        {
+            return;
+        }
+        
         if (IsServer)
         {
-            if (!_clientsInLobbyReadyStateDictionary.ContainsKey(clientid))
+            if (!_clientReadyStates.ContainsKey(clientId))
             {
-                _clientsInLobbyReadyStateDictionary.Add(clientid, false);
+                _clientReadyStates.Add(clientId, false);
                 UpdateLobbyText();
             }
 
@@ -78,7 +71,7 @@ public class LobbyManager : NetworkBehaviour
     private void UpdateLobbyText()
     {
         var stringBuilder = new StringBuilder();
-        foreach (var clientLobbyStatusPair in _clientsInLobbyReadyStateDictionary)
+        foreach (var clientLobbyStatusPair in _clientReadyStates)
         {
             var clientId = clientLobbyStatusPair.Key;
             var isReady = clientLobbyStatusPair.Value;
@@ -99,9 +92,9 @@ public class LobbyManager : NetworkBehaviour
     // 클라이언트들의 준비 상태를 갱신하고, 게임을 시작할 수 있는지 확인
     private void UpdateAndCheckPlayersInLobby()
     {
-        var enoughPlayer = _clientsInLobbyReadyStateDictionary.Count >= MinimumReadyCountToStartGame;
+        var enoughPlayer = _clientReadyStates.Count >= MinimumReadyCountToStartGame;
         var allReady = true;
-        foreach (var clientReadyStatePair in _clientsInLobbyReadyStateDictionary)
+        foreach (var clientReadyStatePair in _clientReadyStates)
         {
             var clientId = clientReadyStatePair.Key;
             var isReady = clientReadyStatePair.Value;
@@ -116,8 +109,13 @@ public class LobbyManager : NetworkBehaviour
 
         if (enoughPlayer && allReady)
         {
-            NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnectedCallback;
-            NetworkManager.SceneManager.OnLoadComplete -= OnClientSceneLoadComplete;
+            if (IsServer)
+            {
+                NetworkManager.OnClientConnectedCallback -= OnClientConnectedCallback;
+                NetworkManager.OnClientDisconnectCallback -= OnClientDisconnectedCallback;
+                NetworkManager.SceneManager.OnLoadComplete -= OnClientSceneLoadComplete;
+            }
+
             NetworkManager.SceneManager.LoadScene("InGame", LoadSceneMode.Single);
         }
     }
@@ -128,9 +126,9 @@ public class LobbyManager : NetworkBehaviour
     {
         if (IsServer)
         {
-            if (!_clientsInLobbyReadyStateDictionary.ContainsKey(clientId))
+            if (!_clientReadyStates.ContainsKey(clientId))
             {
-                _clientsInLobbyReadyStateDictionary.Add(clientId, false);
+                _clientReadyStates.Add(clientId, false);
             }
 
             UpdateLobbyText();
@@ -143,9 +141,9 @@ public class LobbyManager : NetworkBehaviour
     {
         if (IsServer)
         {
-            if (_clientsInLobbyReadyStateDictionary.ContainsKey(clientId))
+            if (_clientReadyStates.ContainsKey(clientId))
             {
-                _clientsInLobbyReadyStateDictionary.Remove(clientId);
+                _clientReadyStates.Remove(clientId);
                 UpdateLobbyText();
             }
         }
@@ -160,7 +158,7 @@ public class LobbyManager : NetworkBehaviour
             return;
         }
 
-        _clientsInLobbyReadyStateDictionary[clientId] = isReady;
+        _clientReadyStates[clientId] = isReady;
         UpdateLobbyText();
     }
 
@@ -168,7 +166,7 @@ public class LobbyManager : NetworkBehaviour
     // 클라이언트가 준비 버튼을 눌렀을때 실행하는 메서드
     public void SetPlayerIsReady()
     {
-        _clientsInLobbyReadyStateDictionary[NetworkManager.Singleton.LocalClientId] = true;
+        _clientReadyStates[NetworkManager.Singleton.LocalClientId] = true;
         if (IsServer)
         {
             UpdateAndCheckPlayersInLobby();
@@ -185,9 +183,9 @@ public class LobbyManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void OnClientIsReadyServerRpc(ulong clientid)
     {
-        if (_clientsInLobbyReadyStateDictionary.ContainsKey(clientid))
+        if (_clientReadyStates.ContainsKey(clientid))
         {
-            _clientsInLobbyReadyStateDictionary[clientid] = true;
+            _clientReadyStates[clientid] = true;
             UpdateAndCheckPlayersInLobby();
             UpdateLobbyText();
         }

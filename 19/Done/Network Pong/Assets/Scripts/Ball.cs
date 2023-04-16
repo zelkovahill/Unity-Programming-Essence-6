@@ -5,7 +5,6 @@ public class Ball : NetworkBehaviour
 {
     private Vector2 direction = Vector2.right;
     private readonly float speed = 10f;
-    private readonly float randomRefectionIntensity = 0.1f;
     
     private void FixedUpdate()
     {
@@ -28,7 +27,6 @@ public class Ball : NetworkBehaviour
             }
 
             direction = Vector2.Reflect(direction, hit.normal);
-            direction += Random.insideUnitCircle * randomRefectionIntensity;
             direction = direction.normalized;
         }
 

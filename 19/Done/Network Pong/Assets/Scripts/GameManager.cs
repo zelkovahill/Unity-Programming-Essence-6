@@ -55,32 +55,48 @@ public class GameManager : NetworkBehaviour
         
         gameoverPanel.SetActive(false);
         UpdateScoreTextClientRpc(0, 0);
+        
+        NetworkManager.OnClientDisconnectCallback += OnClientDisconnected;
     }
     
+    public override void OnNetworkDespawn()
+    {
+        NetworkManager.OnClientDisconnectCallback -= OnClientDisconnected;
+    }
+
+    private void OnClientDisconnected(ulong obj)
+    {
+        if (IsGameActive)
+        {
+            ExitGame();
+        }
+    }
+
     private void SpawnPlayer()
     {
         var clientsList = NetworkManager.ConnectedClientsList;
-
-        // Pong only can be played by 2 players 
         if (clientsList.Count != 2)
         {
             Debug.LogError("Pong can only be played by 2 players...");
             return;
         }
         
-        for (var i = 0; i < 2; i++)
-        {
-            var client = clientsList[i];
-            var playerControl = client.PlayerObject.GetComponent<PlayerControl>();
-            
-            var spawnPositionTransform = spawnPositionTransforms[i];
-            playerControl.SpawnToPositionClientRpc(spawnPositionTransform.position);
-            playerControl.playerColor.Value = playerColors[i];
-            playerControl.SetRenderActiveClientRpc(true);
-        }
-
+        PlayerSetup(0);
+        PlayerSetup(1);
+        
         playerGoalPosts[0].opponentId = clientsList[1].ClientId;
         playerGoalPosts[1].opponentId = clientsList[0].ClientId;
+    }
+
+    private void PlayerSetup(int playerNumber)
+    {
+        var client = NetworkManager.ConnectedClientsList[playerNumber];
+        var spawnPositionTransform = spawnPositionTransforms[playerNumber];
+
+        var playerControl = client.PlayerObject.GetComponent<PlayerControl>();
+
+        playerControl.SpawnToPositionClientRpc(spawnPositionTransform.position);
+        playerControl.SetRendererColorClientRpc(playerColors[playerNumber]);
     }
 
     private void SpawnBall()
@@ -122,12 +138,6 @@ public class GameManager : NetworkBehaviour
         var ball = FindObjectOfType<Ball>();
         ball.NetworkObject.Despawn();
 
-        foreach (var networkClient in NetworkManager.ConnectedClientsList)
-        {
-            var playerControl = networkClient.PlayerObject.GetComponent<PlayerControl>();
-            playerControl.SetRenderActiveClientRpc(false);
-        }
-        
         EndGameClientRpc(winnerId);
     }
     

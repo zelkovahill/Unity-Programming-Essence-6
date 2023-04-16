@@ -3,20 +3,8 @@ using UnityEngine;
 
 public class PlayerControl : NetworkBehaviour
 {
-    public NetworkVariable<Color> playerColor = new NetworkVariable<Color>();
     private SpriteRenderer _spriteRenderer;
-    
     public float speed = 5f;
-
-    public override void OnNetworkSpawn()
-    {
-        playerColor.OnValueChanged += OnPlayerColorChanged;
-    }
-
-    private void OnPlayerColorChanged(Color previousvalue, Color newvalue)
-    {
-        _spriteRenderer.color = newvalue;
-    }
 
     private void Awake()
     {
@@ -24,11 +12,11 @@ public class PlayerControl : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void SetRenderActiveClientRpc(bool active)
+    public void SetRendererColorClientRpc(Color color)
     {
-        _spriteRenderer.enabled = active;
+        _spriteRenderer.color = color;
     }
-    
+
     [ClientRpc]
     public void SpawnToPositionClientRpc(Vector3 position)
     {
@@ -37,16 +25,16 @@ public class PlayerControl : NetworkBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance == null || !GameManager.Instance.IsGameActive)
-        {
-            return;
-        }
-        
         if (!IsOwner)
         {
             return;
         }
         
+        if (GameManager.Instance == null || !GameManager.Instance.IsGameActive)
+        {
+            return;
+        }
+
         var input = Input.GetAxis("Vertical");
         
         var distance = input * speed * Time.deltaTime;

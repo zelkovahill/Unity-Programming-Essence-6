@@ -5,7 +5,6 @@ public class Goalpost : MonoBehaviour
 {
     public ulong opponentId;
     
-    // Invoke when goal
     public void OnGoal()
     {
         if (!NetworkManager.Singleton.IsHost)
