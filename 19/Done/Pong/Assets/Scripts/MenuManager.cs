@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
     // 클라이언트가 연결을 끊었을 때 호출되는 콜백
     private void OnClientDisconnectCallback(ulong obj)
     {
-        string disconnectReason = NetworkManager.Singleton.DisconnectReason;
+        var disconnectReason = NetworkManager.Singleton.DisconnectReason;
         if (string.IsNullOrEmpty(disconnectReason))
         {
             infoText.text = disconnectReason;
@@ -61,8 +61,8 @@ public class MenuManager : MonoBehaviour
     // 호스트로 게임을 생성할 때 호출되는 메서드
     public void CreateGameAsHost()
     {
-        NetworkManager networkManager = NetworkManager.Singleton;
-        UnityTransport transport
+        var networkManager = NetworkManager.Singleton;
+        var transport
             = (UnityTransport)networkManager.NetworkConfig.NetworkTransport;
         transport.ConnectionData.Port = DefaultPort;
 
@@ -80,8 +80,8 @@ public class MenuManager : MonoBehaviour
     // 클라이언트로 게임에 참여할 때 호출되는 메서드
     public void JoinGameAsClient()
     {
-        NetworkManager networkManager = NetworkManager.Singleton;
-        UnityTransport transport
+        var networkManager = NetworkManager.Singleton;
+        var transport
             = (UnityTransport)networkManager.NetworkConfig.NetworkTransport;
 
         transport.SetConnectionData(hostAddressInputField.text, DefaultPort);
