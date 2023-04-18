@@ -123,11 +123,13 @@ public class LobbyManager : NetworkBehaviour
     {
         var stringBuilder = new StringBuilder();
 
+        // 딕셔너리에 저장된 플레이어들의 준비 상태를 문자열로 조합
         foreach (var pair in _clientReadyStates)
         {
+            // 플레이어의 ID와 준비 상태를 가져옴
             var clientId = pair.Key;
             var isReady = pair.Value;
-
+            
             if (isReady)
             {
                 stringBuilder.AppendLine($"PLAYER_{clientId} : READY");
@@ -138,17 +140,20 @@ public class LobbyManager : NetworkBehaviour
             }
         }
 
+        // 로비 텍스트에 조합한 문자열을 적용
         lobbyText.text = stringBuilder.ToString();
     }
 
     // 게임을 시작할 수 있는지 확인
     private bool CheckIsReadyToStart()
     {
+        // 최소한 2명의 플레이어가 있어야 게임을 시작할 수 있음
         if (_clientReadyStates.Count < MinimumReadyCountToStartGame)
         {
             return false;
         }
 
+        // 모든 플레이어가 준비 상태여야 게임을 시작할 수 있음
         foreach (var clientReadyStatePair in _clientReadyStates)
         {
             var isReady = clientReadyStatePair.Value;
@@ -164,30 +169,39 @@ public class LobbyManager : NetworkBehaviour
     // 게임 시작
     private void StartGame()
     {
+        // 호스트가 아니면 실행하지 않음
         if (!IsServer)
         {
             return;
         }
 
+        // 서버가 네트워크 매니저에게 등록한 콜백을 해제
         NetworkManager.OnClientConnectedCallback -= OnClientConnected;
         NetworkManager.OnClientDisconnectCallback -= OnClientDisconnected;
+        NetworkManager.SceneManager.OnLoadComplete -= OnClientSceneLoadComplete;
+        
+        // 서버가 게임 씬을 로드하도록 요청
         NetworkManager.SceneManager.LoadScene("InGame", LoadSceneMode.Single);
     }
 
     // 클라이언트가 준비 버튼을 눌렀을때 실행하는 메서드
     public void SetPlayerIsReady()
     {
+        // 로컬 클라이언트의 ID를 가져옴
         var localClientId = NetworkManager.LocalClientId;
+        
         // 준비 버튼을 누르면 준비 상태를 반전시킴
-        _clientReadyStates[localClientId]
-            = !_clientReadyStates[localClientId];
-
+        _clientReadyStates[localClientId] = !_clientReadyStates[localClientId];
         var isReady = _clientReadyStates[localClientId];
-        UpdateLobbyText();
+
+        UpdateLobbyText(); // 로비 텍스트 갱신
 
         if (IsServer)
         {
+            // 클라이언트에게 변경된 호스트의 준비 상태를 동기화
             SetClientIsReadyClientRpc(localClientId, isReady);
+            
+            // 모든 클라이언트가 준비 상태라면 게임을 시작
             var isReadyToStart = CheckIsReadyToStart();
             if (isReadyToStart)
             {
@@ -196,6 +210,8 @@ public class LobbyManager : NetworkBehaviour
         }
         else
         {
+            // 호스트에게 변경된 클라이언트의 준비 상태를
+            // 모든 클라이언트에게 동기화하도록 요청
             SetClientIsReadyServerRpc(localClientId, isReady);
         }
     }
@@ -205,9 +221,13 @@ public class LobbyManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SetClientIsReadyServerRpc(ulong clientId, bool isReady)
     {
+        // 호스트의 딕셔너리를 갱신
         _clientReadyStates[clientId] = isReady;
+        // 다른 클라이언트들에게 변경된 클라이언트의 준비 상태를 동기화
         SetClientIsReadyClientRpc(clientId, isReady);
-        UpdateLobbyText();
+        UpdateLobbyText(); // 호스트의 로비 텍스트를 갱신
+        
+        // 모든 클라이언트가 준비 상태라면 게임을 시작
         var isReadyToStart = CheckIsReadyToStart();
         if (isReadyToStart)
         {
