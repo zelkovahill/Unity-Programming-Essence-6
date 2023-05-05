@@ -21,13 +21,19 @@ public class MenuManager : MonoBehaviour
     private void OnEnable()
     {
         // 접속이 종료된 경우 호출되는 콜백을 등록
-        NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
+        NetworkManager.Singleton.OnClientDisconnectCallback
+            += OnClientDisconnectCallback;
     }
 
     private void OnDisable()
     {
-        // 접속이 종료된 경우 호출되는 콜백을 해제
-        NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnectCallback;
+        // 게임 종료시 네트워크 매니저가 먼저 파괴되는 경우에 대한 예외 처리
+        if (NetworkManager.Singleton != null)
+        {
+            // 접속이 종료된 경우 호출되는 콜백을 해제
+            NetworkManager.Singleton.OnClientDisconnectCallback
+                -= OnClientDisconnectCallback;
+        }
     }
 
     // 클라이언트가 연결을 끊었을 때 호출되는 콜백
