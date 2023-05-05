@@ -1,7 +1,8 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerControl : NetworkBehaviour
+// 플레이어로서 공을 받아내는 패들(판때기) 구현
+public class PlayerPaddle : NetworkBehaviour
 {
     // 플레이어의 색상을 변경하기 위한 컴포넌트
     private SpriteRenderer _spriteRenderer;

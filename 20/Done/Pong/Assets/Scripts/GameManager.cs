@@ -47,7 +47,7 @@ public class GameManager : NetworkBehaviour
     private int[] playerScores = new int[2];
     
     // 승리 도달 점수
-    private const int WinScore = 10;
+    private const int WinScore = 11;
 
     // 처음 활성화시 게임을 시작하는 처리를 실행
     public override void OnNetworkSpawn()
@@ -115,7 +115,7 @@ public class GameManager : NetworkBehaviour
 
             // 플레이어 프리팹을 인스턴스화하고 네트워크 스폰
             var playerGameObject = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
-            var playerControl = playerGameObject.GetComponent<PlayerControl>();
+            var playerControl = playerGameObject.GetComponent<PlayerPaddle>();
             // 다른 씬으로 이동할때 파괴되도록 함
             playerControl.NetworkObject.SpawnAsPlayerObject(client.ClientId, destroyWithScene: true);
             

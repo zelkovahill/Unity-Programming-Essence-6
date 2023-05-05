@@ -5,8 +5,8 @@ public class Ball : NetworkBehaviour
 {
     private Vector2 direction; // 공의 이동 방향
     private readonly float speed = 10f; // 속도
-
-    // 공이 스폰될때 방향을 랜덤하게 지정함
+    
+    // 최초 공의 방향을 결정
     public override void OnNetworkSpawn()
     {
         if (!IsServer)
@@ -14,10 +14,10 @@ public class Ball : NetworkBehaviour
             return;
         }
         
-        // 기본 왼쪽 방향에 랜덤한 방향을 더함
-        direction = Vector2.left + Random.insideUnitCircle;
-        // 방향을 정규화
-        direction = direction.normalized;
+        // 게임 시작시 공의 이동 방향은
+        // 무작위성이 조금 추가된 왼쪽 방향
+        direction = 
+            (Vector2.left + Random.insideUnitCircle * 0.1f).normalized;
     }
     
     private void FixedUpdate()
@@ -34,37 +34,40 @@ public class Ball : NetworkBehaviour
         // 공의 이동 방향으로 레이캐스트를 통해 충돌 검사
         var hit = Physics2D.Raycast(transform.position, direction, distance);
 
-        // 충돌한 경우
+        // 무언가와 충돌한 경우
         if (hit.collider != null)
         {
-            // 충돌한 오브젝트가 골대인 경우
-            var goalpost = hit.collider.GetComponent<Goalpost>();
-            if (goalpost != null)
+            // 충돌한 게임 오브젝트가 스코어 존인 경우
+            if (hit.collider.CompareTag("ScoringZone"))
             {
-                // 골대에 공이 들어갔음을 알림
-                goalpost.OnGoal();
-                // 공을 리스폰
-                Respawn();
+                // 왼쪽 스코어 존인 경우 플레이어 1번에 점수 추가
+                if (hit.point.x < 0f)
+                {
+                    GameManager.Instance.AddScore(1, 1);
+                    // 공 위차가 리셋될때
+                    // 공을 놓친 플레이어 방향으로 공이 날아감 
+                    direction = Vector2.left;
+                }
+                else
+                {
+                    // 오른쪽 스코어 존인 경우 플레이어 0번에 점수 추가
+                    GameManager.Instance.AddScore(0, 1);
+                    direction = Vector2.right;
+                }
+                
+                // 공을 시작 위치로 되돌림
+                transform.position = Vector3.zero;
                 return;
             }
 
-            // 골대에 충돌하지 않은 경우
-            // 충돌한 표면에서 공을 튕김
+            // 스코어링 존에 충돌하지 않은 경우
+            // 충돌 방향에 반사되는 방향으로 공을 튕김
             direction = Vector2.Reflect(direction, hit.normal);
-            // 공의 이동 방향에 랜덤한 방향을 미세하게 더함
-            direction += Random.insideUnitCircle * 0.01f;
-            direction = direction.normalized;
+            // 공의 이동 방향에 랜덤성을 더함
+            direction 
+                = (direction + Random.insideUnitCircle * 0.1f).normalized;
         }
         // 위치 이동 적용
-        transform.position = (Vector2) transform.position + direction * distance;
-    }
-    
-    // 공을 리스폰
-    private void Respawn()
-    {
-        // 정위치로 되돌림
-        transform.position = Vector3.zero;
-        // 방향을 랜덤하게 지정
-        direction = Random.insideUnitCircle.normalized;
+        transform.position += (Vector3)(direction * distance);
     }
 }
