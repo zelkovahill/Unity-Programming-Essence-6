@@ -41,10 +41,13 @@ public class LobbyManager : NetworkBehaviour
             return;
         }
 
-        // 서버가 네트워크 매니저에게 등록한 콜백을 해제
-        NetworkManager.OnClientConnectedCallback -= OnClientConnected;
-        NetworkManager.OnClientDisconnectCallback -= OnClientDisconnected;
-        NetworkManager.SceneManager.OnLoadComplete -= OnClientSceneLoadComplete;
+        if (NetworkManager.Singleton != null)
+        {
+            // 서버가 네트워크 매니저에게 등록한 콜백을 해제
+            NetworkManager.OnClientConnectedCallback -= OnClientConnected;
+            NetworkManager.OnClientDisconnectCallback -= OnClientDisconnected;
+            NetworkManager.SceneManager.OnLoadComplete -= OnClientSceneLoadComplete;    
+        }
     }
 
     // 클라이언트가 연결되었을때 실행할 콜백

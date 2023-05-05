@@ -4,23 +4,23 @@ using UnityEngine;
 // 플레이어로서 공을 받아내는 패들(판때기) 구현
 public class PlayerPaddle : NetworkBehaviour
 {
-    // 플레이어의 색상을 변경하기 위한 컴포넌트
+    // 패들 색상을 변경하기 위한 컴포넌트
     private SpriteRenderer _spriteRenderer;
-    public float speed = 5f; // 이동 속도
+    public float speed = 10f; // 이동 속도
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // 플레이어의 색상을 변경
+    // 패들 색상을 변경
     [ClientRpc]
     public void SetRendererColorClientRpc(Color color)
     {
         _spriteRenderer.color = color;
     }
 
-    // 플레이어의 위치를 변경
+    // 패들 위치를 변경
     [ClientRpc]
     public void SpawnToPositionClientRpc(Vector3 position)
     {

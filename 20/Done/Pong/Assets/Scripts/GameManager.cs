@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,7 +22,7 @@ public class GameManager : NetworkBehaviour
     private static GameManager instance;
     
     // 게임이 진행 중인지 여부
-    public bool IsGameActive { get; set; }
+    public bool IsGameActive { get; private set; }
     
     // 점수 표시할 UI 텍스트
     public Text scoreText;
@@ -115,13 +114,13 @@ public class GameManager : NetworkBehaviour
 
             // 플레이어 프리팹을 인스턴스화하고 네트워크 스폰
             var playerGameObject = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
-            var playerControl = playerGameObject.GetComponent<PlayerPaddle>();
+            var playerPaddle = playerGameObject.GetComponent<PlayerPaddle>();
             // 다른 씬으로 이동할때 파괴되도록 함
-            playerControl.NetworkObject.SpawnAsPlayerObject(client.ClientId, destroyWithScene: true);
+            playerPaddle.NetworkObject.SpawnAsPlayerObject(client.ClientId, destroyWithScene: true);
             
             // 플레이어의 스폰 위치와 색상을 클라이언트에게 전달
-            playerControl.SpawnToPositionClientRpc(spawnPosition);
-            playerControl.SetRendererColorClientRpc(playerColor);
+            playerPaddle.SpawnToPositionClientRpc(spawnPosition);
+            playerPaddle.SetRendererColorClientRpc(playerColor);
         }
     }
 

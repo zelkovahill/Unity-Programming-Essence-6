@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 480542417353831603}
   - component: {fileID: 6093171193426876258}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b993311bc1af346cb98f24bcd151eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
 --- !u!61 &1785415087910236207
 BoxCollider2D:
   m_ObjectHideFlags: 0
