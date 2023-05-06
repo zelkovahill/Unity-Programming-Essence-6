@@ -52,7 +52,7 @@ public class GameManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         // 서버에서만 플레이어와 공을 스폰
-        if (NetworkManager.IsServer)
+        if (IsServer)
         {
             SpawnPlayer();
             SpawnBall();

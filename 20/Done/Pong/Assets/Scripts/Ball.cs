@@ -33,7 +33,7 @@ public class Ball : NetworkBehaviour
 
         // 공의 이동 거리를 계산
         var distance = currentSpeed * Time.deltaTime;
-        
+
         // 공의 이동 방향으로 레이캐스트를 통해 충돌 검사
         var hit = Physics2D.Raycast(transform.position, direction, distance);
 
@@ -76,7 +76,7 @@ public class Ball : NetworkBehaviour
 
             // 충돌 지점까지 이동할시 남은 이동할 거리를 계산
             distance -= hit.distance;
-  
+
             // 충돌 방향에 반사되는 방향으로 공을 튕김
             direction = Vector2.Reflect(direction, hit.normal);
             // 공의 이동 방향에 랜덤성을 조금 더함
@@ -85,9 +85,9 @@ public class Ball : NetworkBehaviour
 
             // 충돌 표면에서 튕겨나가는 방향으로 남은 거리만큼 공을 이동
             transform.position += (Vector3)direction * distance;
-  
+
             // 공의 이동 속도를 증가
-            currentSpeed = Mathf.Max(currentSpeed + AdditionalSpeedPerHit,MaxSpeed);
+            currentSpeed = Mathf.Min(currentSpeed + AdditionalSpeedPerHit,MaxSpeed);
         }
     }
 }

@@ -39,12 +39,10 @@ public class MenuManager : MonoBehaviour
     // 클라이언트가 연결을 끊었을 때 호출되는 콜백
     private void OnClientDisconnectCallback(ulong obj)
     {
-        string disconnectReason = NetworkManager.Singleton.DisconnectReason;
-        if (string.IsNullOrEmpty(disconnectReason))
-        {
-            infoText.text = disconnectReason;
-            Debug.Log(disconnectReason);
-        }
+        // 연결 종료 이유를 가져옴
+        var disconnectReason = NetworkManager.Singleton.DisconnectReason;
+        infoText.text = disconnectReason;
+        Debug.Log(disconnectReason);
     }
 
     // 연결을 승인할 때 호출되는 콜백
@@ -68,17 +66,24 @@ public class MenuManager : MonoBehaviour
     // 호스트로 게임을 생성할 때 호출되는 메서드
     public void CreateGameAsHost()
     {
-        NetworkManager networkManager = NetworkManager.Singleton;
-        UnityTransport transport
+        // 네트워크 매니저 가져오기
+        var networkManager = NetworkManager.Singleton;
+        // 네트워크 트랜스포트 설정 가져오기
+        var transport
             = (UnityTransport)networkManager.NetworkConfig.NetworkTransport;
+        // 사용할 포트 번호 지정
         transport.ConnectionData.Port = DefaultPort;
 
+        // 호스트로 게임을 시작
         if (networkManager.StartHost())
         {
-            networkManager.SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+            // 게임에 참가하는 모든 플레이어가 로비 씬을 로드하도록 설정
+            networkManager.SceneManager
+                .LoadScene("Lobby", LoadSceneMode.Single);
         }
         else
         {
+            // 호스트 시작에 실패한 경우
             infoText.text = "Host failed to start";
             Debug.LogError("Host failed to start");
         }
@@ -87,14 +92,17 @@ public class MenuManager : MonoBehaviour
     // 클라이언트로 게임에 참여할 때 호출되는 메서드
     public void JoinGameAsClient()
     {
-        NetworkManager networkManager = NetworkManager.Singleton;
-        UnityTransport transport
+        var networkManager = NetworkManager.Singleton;
+        var transport
             = (UnityTransport)networkManager.NetworkConfig.NetworkTransport;
 
+        // 호스트 주소를 설정
         transport.SetConnectionData(hostAddressInputField.text, DefaultPort);
 
+        // 클라이언트로 게임에 참여
         if (!NetworkManager.Singleton.StartClient())
         {
+            // 클라이언트 시작에 실패한 경우
             infoText.text = "Client failed to start";
             Debug.LogError("Client failed to start");
         }
