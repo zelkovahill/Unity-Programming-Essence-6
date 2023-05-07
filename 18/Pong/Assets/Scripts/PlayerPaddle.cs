@@ -30,28 +30,10 @@ public class PlayerPaddle : NetworkBehaviour
     private void Update()
     {
         // 게임이 활성화 안된 상태에서는 이동 처리를 하지 않음
-        if (GameManager.Instance != null 
+        if (GameManager.Instance != null
             && !GameManager.Instance.IsGameActive)
         {
             return;
         }
-        
-        // 소유권을 가진 경우에만 이동 처리
-        if (!IsOwner)
-        {
-            return;
-        }
-        
-        // 키보드 입력을 받아 이동
-        var input = Input.GetAxis("Vertical");
-
-        // 이동 거리를 계산하여 Y 위치를 변경
-        var distance = input * speed * Time.deltaTime;
-        var position = transform.position;
-        position.y += distance;
-        
-        // 이동 범위를 제한
-        position.y = Mathf.Clamp(position.y, -4.5f, 4.5f);
-        transform.position = position;
     }
 }
