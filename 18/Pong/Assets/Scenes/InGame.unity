@@ -134,10 +134,9 @@ GameObject:
   m_Component:
   - component: {fileID: 98431668}
   - component: {fileID: 98431669}
-  - component: {fileID: 98431670}
   m_Layer: 0
-  m_Name: Player 1 Goalpost
-  m_TagString: Untagged
+  m_Name: ScoringZone
+  m_TagString: ScoringZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,7 +154,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1833924208}
-  m_RootOrder: 3
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &98431669
 BoxCollider2D:
@@ -202,19 +201,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 20}
   m_EdgeRadius: 0
---- !u!114 &98431670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 98431667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23ee647c2838646fa8a9d7b8377485a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  opponentId: 0
 --- !u!1 &189718610
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,10 +368,9 @@ GameObject:
   m_Component:
   - component: {fileID: 386527245}
   - component: {fileID: 386527246}
-  - component: {fileID: 386527247}
   m_Layer: 0
-  m_Name: Player 0 Goalpost
-  m_TagString: Untagged
+  m_Name: ScoringZone
+  m_TagString: ScoringZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -439,30 +424,17 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    border: {x: 0.19999999, y: 0.19999999, z: 0.19999999, w: 0.19999999}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 0.3, y: 1.4}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.5, y: 20}
   m_EdgeRadius: 0
---- !u!114 &386527247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 386527244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23ee647c2838646fa8a9d7b8377485a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  opponentId: 0
 --- !u!1 &484393540
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,6 +789,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -1133,9 +1106,6 @@ MonoBehaviour:
   spawnPositionTransforms:
   - {fileID: 1636207209}
   - {fileID: 827939378}
-  playerGoalPosts:
-  - {fileID: 386527247}
-  - {fileID: 98431670}
   ballPrefab: {fileID: 186192762354777215, guid: 50b963eb992754c329b4fee74824207a,
     type: 3}
   gameoverText: {fileID: 255383212}

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PositionSync : NetworkBehaviour
 {
     private Vector2 _lastPosition; // 마지막으로 동기화된 위치
-    // 위치값 동기화를 위한 NetworkVariable
+    // 위치값 동기화를 위한 네트워크 변수
     public NetworkVariable<Vector2> networkPosition 
         = new NetworkVariable<Vector2>(
             readPerm: NetworkVariableReadPermission.Everyone,
@@ -15,7 +15,7 @@ public class PositionSync : NetworkBehaviour
     {
         if (IsOwner)
         {
-            // 서버에서만 동작
+            // 로컬 클라이언트가 소유자인 경우
             // 마지막으로 동기화된 위치와 현재 위치가 일정 거리 이상 차이가 나면
             if (Vector2.Distance(_lastPosition, transform.position) > 0.001f)
             {
@@ -26,8 +26,8 @@ public class PositionSync : NetworkBehaviour
         }
         else 
         {
-            // 클라이언트에서만 동작
-            // 호스트로부터 전달받은 동기화된 위치로 이동
+            // 로컬 클라이언트가 소유자가 아닌 경우
+            // 전달받은 동기화된 위치로 이동
             transform.position = (Vector3)networkPosition.Value;    
         }
     }

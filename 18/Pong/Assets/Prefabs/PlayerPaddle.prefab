@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 480542417353831603}
   - component: {fileID: 6093171193426876258}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerPaddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,9 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b993311bc1af346cb98f24bcd151eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColor:
-    m_InternalValue: {r: 0, g: 0, b: 0, a: 0}
-  speed: 5
+  speed: 10
 --- !u!61 &1785415087910236207
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -176,5 +174,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe71cfa6b103f428f8df2b1169fef1aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position:
-    m_InternalValue: {x: 0, y: 0, z: 0}
+  networkPosition:
+    m_InternalValue: {x: 0, y: 0}

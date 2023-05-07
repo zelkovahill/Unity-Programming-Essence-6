@@ -41,10 +41,13 @@ public class LobbyManager : NetworkBehaviour
             return;
         }
 
-        // 서버가 네트워크 매니저에게 등록한 콜백을 해제
-        NetworkManager.OnClientConnectedCallback -= OnClientConnected;
-        NetworkManager.OnClientDisconnectCallback -= OnClientDisconnected;
-        NetworkManager.SceneManager.OnLoadComplete -= OnClientSceneLoadComplete;
+        if (NetworkManager.Singleton != null)
+        {
+            // 서버가 네트워크 매니저에게 등록한 콜백을 해제
+            NetworkManager.OnClientConnectedCallback -= OnClientConnected;
+            NetworkManager.OnClientDisconnectCallback -= OnClientDisconnected;
+            NetworkManager.SceneManager.OnLoadComplete -= OnClientSceneLoadComplete;    
+        }
     }
 
     // 클라이언트가 연결되었을때 실행할 콜백
@@ -189,7 +192,7 @@ public class LobbyManager : NetworkBehaviour
     {
         // 로컬 클라이언트의 ID를 가져옴
         var localClientId = NetworkManager.LocalClientId;
-        
+
         // 준비 버튼을 누르면 준비 상태를 반전시킴
         _clientReadyStates[localClientId] = !_clientReadyStates[localClientId];
         var isReady = _clientReadyStates[localClientId];
@@ -202,8 +205,7 @@ public class LobbyManager : NetworkBehaviour
             SetClientIsReadyClientRpc(localClientId, isReady);
             
             // 모든 클라이언트가 준비 상태라면 게임을 시작
-            var isReadyToStart = CheckIsReadyToStart();
-            if (isReadyToStart)
+            if (CheckIsReadyToStart())
             {
                 StartGame();
             }
@@ -228,8 +230,7 @@ public class LobbyManager : NetworkBehaviour
         UpdateLobbyText(); // 호스트의 로비 텍스트를 갱신
         
         // 모든 클라이언트가 준비 상태라면 게임을 시작
-        var isReadyToStart = CheckIsReadyToStart();
-        if (isReadyToStart)
+        if (CheckIsReadyToStart())
         {
             StartGame();
         }
