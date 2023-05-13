@@ -157,9 +157,8 @@ public class LobbyManager : NetworkBehaviour
         }
 
         // 모든 플레이어가 준비 상태여야 게임을 시작할 수 있음
-        foreach (var clientReadyStatePair in _clientReadyStates)
+        foreach (var isReady in _clientReadyStates.Values)
         {
-            var isReady = clientReadyStatePair.Value;
             if (!isReady)
             {
                 return false;
