@@ -18,15 +18,15 @@ public class GameManager : NetworkBehaviour
             return instance;
         }
     }
-
+    
     private static GameManager instance;
-
+    
     // 게임이 진행 중인지 여부
     public bool IsGameActive { get; private set; }
-
+    
     // 점수 표시할 UI 텍스트
     public Text scoreText;
-
+    
     // 플레이어 색상, 스폰 위치
     public Color[] playerColors = new Color[2];
     public Transform[] spawnPositionTransforms = new Transform[2];
@@ -39,21 +39,21 @@ public class GameManager : NetworkBehaviour
     public GameObject gameoverPanel;
 
     // 플레이어 번호와 클라이언트 ID를 맵핑하는 딕셔너리
-    private Dictionary<int, ulong> playerNumberClientIdMap
+    private Dictionary<int, ulong> playerNumberClientIdMap 
         = new Dictionary<int, ulong>();
-
+    
     // 플레이어 점수를 저장하는 배열
     private int[] playerScores = new int[2];
-
+    
     // 승리 도달 점수
     private const int WinScore = 11;
 
     // 처음 활성화시 게임을 시작하는 처리를 실행
     public override void OnNetworkSpawn()
     {
-
+  
     }
-
+    
     public override void OnNetworkDespawn()
     {
 
@@ -68,7 +68,7 @@ public class GameManager : NetworkBehaviour
     // 플레이어들을 스폰
     private void SpawnPlayer()
     {
-
+        
     }
 
     // 공 생성
@@ -89,20 +89,20 @@ public class GameManager : NetworkBehaviour
     {
         scoreText.text = $"{player0Score} : {player1Score}";
     }
-
+    
     // 서버에서 실행할 게임 종료
     public void EndGame(ulong winnerId)
     {
 
     }
-
+    
     // 클라이언트에서 실행할 게임 종료 처리
     [ClientRpc]
     public void EndGameClientRpc(ulong winnerId)
     {
 
     }
-
+    
     // 게임과 네트워크 연결을 종료하고 메뉴 화면으로 돌아감
     public void ExitGame()
     {

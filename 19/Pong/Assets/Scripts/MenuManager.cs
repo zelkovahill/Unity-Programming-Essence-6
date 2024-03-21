@@ -54,7 +54,7 @@ public class MenuManager : MonoBehaviour
         {
             response.Approved = true;
             // 플레이어 오브젝트는 직접 생성할것
-            response.CreatePlayerObject = false;
+            response.CreatePlayerObject = false; 
         }
         else
         {
