@@ -30,7 +30,7 @@ public class PlayerPaddle : NetworkBehaviour
     private void Update()
     {
         // 게임이 활성화 안된 상태에서는 이동 처리를 하지 않음
-        if (GameManager.Instance != null
+        if (GameManager.Instance != null 
             && !GameManager.Instance.IsGameActive)
         {
             return;
