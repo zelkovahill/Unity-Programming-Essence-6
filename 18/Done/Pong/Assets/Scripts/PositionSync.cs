@@ -6,13 +6,13 @@ public class PositionSync : NetworkBehaviour
 {
     private Vector2 _lastPosition; // 마지막으로 동기화된 위치
     // 위치값 동기화를 위한 네트워크 변수
-    public NetworkVariable<Vector2> networkPosition
+    public NetworkVariable<Vector2> networkPosition 
         = new NetworkVariable<Vector2>(
             readPerm: NetworkVariableReadPermission.Everyone,
             writePerm: NetworkVariableWritePermission.Owner);
 
     private void FixedUpdate()
     {
-
+        
     }
 }
