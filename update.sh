@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Path to Unity Editor executable
-UNITY_EDITOR_PATH="/Applications/Unity/Hub/Editor/6000.0.0b16/Unity.app/Contents/MacOS/Unity"
+UNITY_EDITOR_PATH="/Applications/Unity/Hub/Editor/6000.0.0f1/Unity.app/Contents/MacOS/Unity"
 
 # Ask the user for the folder containing Unity projects
 read -p "Enter the path to the folder containing Unity projects: " PROJECTS_PATH
