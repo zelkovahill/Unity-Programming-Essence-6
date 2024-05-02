@@ -5,13 +5,13 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       1: 100000
-    second: _Combined_Mesh_[Heart]
+    second: '_Combined_Mesh_[Heart]'
   - first:
       1: 100002
     second: //RootNode
   - first:
       4: 400000
-    second: _Combined_Mesh_[Heart]
+    second: '_Combined_Mesh_[Heart]'
   - first:
       4: 400002
     second: //RootNode
@@ -20,13 +20,13 @@ ModelImporter:
     second: _Combined_Mesh_[Heart]Mat
   - first:
       23: 2300000
-    second: _Combined_Mesh_[Heart]
+    second: '_Combined_Mesh_[Heart]'
   - first:
       33: 3300000
-    second: _Combined_Mesh_[Heart]
+    second: '_Combined_Mesh_[Heart]'
   - first:
       43: 4300000
-    second: _Combined_Mesh_[Heart]
+    second: '_Combined_Mesh_[Heart]'
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -45,8 +45,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -69,6 +67,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 0
     importBlendShapes: 1
     importCameras: 0
