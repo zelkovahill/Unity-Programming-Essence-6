@@ -8,8 +8,8 @@ read -p "Enter the path to the folder containing Unity projects: " PROJECTS_PATH
 
 # Check if the path exists
 if [ ! -d "$PROJECTS_PATH" ]; then
-   echo "The specified folder does not exist."
-   exit 1
+    echo "The specified folder does not exist."
+    exit 1
 fi
 
 # Function to check if a given directory is a Unity project
@@ -44,14 +44,29 @@ for UNITY_PROJECT_DIR in "${UNITY_PROJECTS[@]}"; do
   echo "Processing project $COUNT/$TOTAL_COUNT: $UNITY_PROJECT_DIR"
 
   # Create Editor directory if it does not exist
-  mkdir -p "$UNITY_PROJECT_DIR/Assets/Editor"
+  EDITOR_PATH="$UNITY_PROJECT_DIR/Assets/Editor"
+  if [ ! -d "$EDITOR_PATH" ]; then
+    mkdir -p "$EDITOR_PATH"
+  fi
 
-  # Copy the ForceReserializeAssets.cs script to the project's "Assets/Editor/" directory
-  cp "$PROJECTS_PATH/ForceReserializeAssets.cs" "$UNITY_PROJECT_DIR/Assets/Editor/ForceReserializeAssets.cs"
+  # Copy the ForceReserializeAssets.cs script
+  cp "$PROJECTS_PATH/ForceReserializeAssets.cs" "$EDITOR_PATH/ForceReserializeAssets.cs"
 
   # Run Unity in batch mode and execute ForceReserializeAssets.Reserialize method
   "$UNITY_EDITOR_PATH" -batchmode -quit -executeMethod ForceReserializeAssets.Reserialize -projectPath "$UNITY_PROJECT_DIR"
-  
+
+  # Remove the copied script and its meta file
+  rm "$EDITOR_PATH/ForceReserializeAssets.cs"
+  rm "$EDITOR_PATH/ForceReserializeAssets.cs.meta"
+
+  # If the Editor directory is empty, remove it and its .meta file
+  if [ -z "$(ls -A "$EDITOR_PATH")" ]; then
+    rmdir "$EDITOR_PATH"
+    if [ -f "$UNITY_PROJECT_DIR/Assets/Editor.meta" ]; then
+        rm "$UNITY_PROJECT_DIR/Assets/Editor.meta"
+    fi
+  fi
+
   # Show progress
   PERCENT=$((COUNT * 100 / TOTAL_COUNT))
   echo "Progress: $PERCENT%"
