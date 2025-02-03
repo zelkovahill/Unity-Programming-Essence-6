@@ -43,6 +43,9 @@ for UNITY_PROJECT_DIR in "${UNITY_PROJECTS[@]}"; do
   ((COUNT++))
   echo "Processing project $COUNT/$TOTAL_COUNT: $UNITY_PROJECT_DIR"
 
+  # run api update first
+  "$UNITY_EDITOR_PATH" -batchmode -accept-apiupdate -quit -projectPath "$UNITY_PROJECT_DIR"
+  
   # Create Editor directory if it does not exist
   EDITOR_PATH="$UNITY_PROJECT_DIR/Assets/Editor"
   if [ ! -d "$EDITOR_PATH" ]; then
@@ -53,7 +56,7 @@ for UNITY_PROJECT_DIR in "${UNITY_PROJECTS[@]}"; do
   cp "$PROJECTS_PATH/ForceReserializeAssets.cs" "$EDITOR_PATH/ForceReserializeAssets.cs"
 
   # Run Unity in batch mode and execute ForceReserializeAssets.Reserialize method
-  "$UNITY_EDITOR_PATH" -batchmode -quit -accept-apiupdate -executeMethod ForceReserializeAssets.Reserialize -projectPath "$UNITY_PROJECT_DIR"
+  "$UNITY_EDITOR_PATH" -batchmode -quit -executeMethod ForceReserializeAssets.Reserialize -projectPath "$UNITY_PROJECT_DIR"
 
   # Remove the copied script and its meta file
   rm "$EDITOR_PATH/ForceReserializeAssets.cs"
