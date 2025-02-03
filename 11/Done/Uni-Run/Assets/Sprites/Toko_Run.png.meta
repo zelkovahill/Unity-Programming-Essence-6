@@ -333,6 +333,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Toko_Run_0: 21300000
       Toko_Run_1: 21300002

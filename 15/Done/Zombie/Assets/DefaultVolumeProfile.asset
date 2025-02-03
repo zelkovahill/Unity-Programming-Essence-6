@@ -289,6 +289,9 @@ MonoBehaviour:
   skyOcclusionIntensityMultiplier:
     m_OverrideState: 0
     m_Value: 1
+  worldOffset:
+    m_OverrideState: 0
+    m_Value: {x: 0, y: 0, z: 0}
 --- !u!114 &-706627883955295821
 MonoBehaviour:
   m_ObjectHideFlags: 3

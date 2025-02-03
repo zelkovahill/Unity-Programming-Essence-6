@@ -258,6 +258,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Toko_Jump_0: 21300000
       Toko_Jump_1: 21300002

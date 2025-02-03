@@ -283,6 +283,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
       Toko_Die_0: 21300000
       Toko_Die_1: 21300002
