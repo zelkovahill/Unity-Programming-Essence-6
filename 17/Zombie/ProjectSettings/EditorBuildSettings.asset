@@ -9,3 +9,4 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 273f5a645a159490fbb1833bfb2dfa17
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
