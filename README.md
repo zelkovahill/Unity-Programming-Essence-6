@@ -24,7 +24,7 @@
 
 ### 권장 : 압축파일 다운로드
 
-다음 링크에서 압축 파일을 다운로드 합니다 : [**다운로드 하기**](http://github.com/IJEMIN/Unity-Programming-Essence-6/releases/download/2.0/Unity-Programming-Essence-6.zip)
+다음 링크에서 압축 파일을 다운로드 합니다 : [**다운로드 하기**](http://github.com/IJEMIN/Unity-Programming-Essence-6/releases/download/2.1/Unity-Programming-Essence-6.zip)
 
 같은 파일을 깃허브 저장소의 [릴리즈](http://github.com/IJEMIN/Unity-Programming-Essence-6/releases) 탭이나 한빛미디어 홈페이지에서도 찾아 다운로드 할 수 있습니다.
 
